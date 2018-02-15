@@ -6,10 +6,11 @@
     <meta name="description" content="shri islands">
 
     <link rel="stylesheet" href="css/main.css">
+    <script src="jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
-        function start() {
-            alert('heh');
-        }
+
+       
+
     </script>
 </head>
 <body>
@@ -17,13 +18,47 @@
     
     <!-- мое -->
     <div id="info-box"></div> 
-    <button id="start" onclick="start()">Start visualize solution</div>
+    <button id="start" >Start visualize solution</button> <!-- onclick="start()" -->
+    <!-- мое -->
+        
     <script src="js/consts.js"></script>
     <script src="js/render.js"></script>
     <script src="js/solution.js"></script>
+    <script src="js/visualizeSolution.js"></script>
     <script src="js/index.js"></script>
+
     
-    <!-- мое -->
+    <script >
+        /*$('#start').text("sdfsf");*/
+       
+        var ind = 5;
+        const ajaxRequest = (item) => new Promise((resolve, reject) => {
+            setTimeout(() => {
+                item--;
+                $('#start').text(item);
+                console.log(item);
+                resolve();
+            }, 500);
+        });
+        const makeRequest = (index = 5) => {
+          if (index == 0) {
+            console.log("end");
+            return Promise.resolve();
+        }
+          return new Promise((resolve, reject) => {
+            ajaxRequest(index).then(() => makeRequest(index - 1));
+          });
+        };
+
+
+        function start() {
+            /*$('[class^="map__cell"').css("border-color","red");*/
+            makeRequest();
+        }
+/*
+        var start_btn = document.querySelector('#start');
+        start_btn.addEventListener('click', start);*/
+    </script>
     
 </body>
 </html>

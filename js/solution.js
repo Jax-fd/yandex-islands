@@ -38,10 +38,11 @@
                         map2[y].push(0);
                     }     
                 }
+                break;
             //работа с рандомным массивом
             case 1:
                 var n = 10;//ширина
-                var m = 1;//длинна
+                var m = 8;//длинна
                 var map = [];
                 var map2 = [];
                 for (var y=0; y < m; y++) {
@@ -52,6 +53,7 @@
                         map2[y].push(0);
                     }     
                 }
+                break;
         }
 
         for (var y=0; y < m; y++) { 
@@ -136,12 +138,12 @@
           count = result.length;
         }
         
-        
-
+        if(1){//Дополнительная инфа
         document.getElementById("info-box").innerHTML='<br>' +
             'ширина:' + n + '<br>'+
             'высота:' + m + '<br>'+
             msg;
+        }
         return count;
     }
 

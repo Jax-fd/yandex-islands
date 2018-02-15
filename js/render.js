@@ -10,10 +10,12 @@
      * @param {string} [text] текст
      * @returns {HTMLElement} HTML элемент
      */
-    function element(type, className, text) {
+    function element(type, className, text, coordinates) {
         var elem = document.createElement(type);
         elem.className = className;
-
+        if(coordinates){
+            elem.setAttribute('yx', coordinates);
+        }
         if (text) {
             elem.innerText = text;
         }
@@ -60,7 +62,9 @@
                 }
 
                 rowElem.appendChild(
-                    element('div', 'map__cell' + (type ? ' map__cell_' + type : ''), type == "island" ? "1" : "0")
+                    element('div', 'map__cell' + (type ? ' map__cell_' + type : ''),
+                             type == "island" ? "1" : "0", 
+                             (y + 1).toString() + '.' + (x + 1).toString() )
                 );
             }
 
