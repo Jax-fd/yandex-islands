@@ -4,13 +4,20 @@
     <meta charset="utf-8">
     <title>Острова</title>
     <meta name="description" content="shri islands">
+    
+    <link href="favicon.ico" rel="shortcut icon" >
 
     <link rel="stylesheet" href="css/main.css">
     <script src="jquery-3.2.1.min.js"></script>
+
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script type="text/javascript">
-
-       
-
+        function speedChange() {
+            speed = document.getElementById("speed_slider").value;
+            /*interval = speed; def_interval = speed;*/
+            $('#speed_value').text(speed);
+        }
     </script>
 </head>
 <body>
@@ -18,7 +25,22 @@
     
     <!-- мое -->
     <div id="info-box"></div> 
-    <button id="start" >Start visualize solution</button> <!-- onclick="start()" -->
+    
+    <button id="start" >Начать визуализацию решения</button> <!-- Start visualize solution -->
+    <!--БОКС НАСТРОЙКИ СКОРОСТИ -->
+    <div id="speed_container">
+        <div id="speed">Задержка: <div id="speed_value"> 500</div> <span class="gray">(<div id="speed_old"> 500</div>)</span> мс</div><br>
+        <input id="speed_slider" type="range" oninput="speedChange()" min="50" max="5000" step="50" value="500"><br>
+    </div>
+
+    <!--ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ -->
+    <div class="index">Уникальный индекс<i title="Уникальный индекс для островов.
+Не всегда совпадает с количеством островов. 
+Увеличивается при обнаружении острова, не имеющего соседей сверху и слева.
+Под этим индексом хранятся массивы координат каждого острова."><i class="fas fa-question-circle"></i></i>: </div>
+    <div class="index_val">0</div><br>
+
+    <div id="log"></div>
     <!-- мое -->
         
     <script src="js/consts.js"></script>
@@ -29,35 +51,45 @@
 
     
     <script >
-        /*$('#start').text("sdfsf");*/
-       
-        var ind = 5;
-        const ajaxRequest = (item) => new Promise((resolve, reject) => {
-            setTimeout(() => {
-                item--;
-                $('#start').text(item);
-                console.log(item);
-                resolve();
-            }, 500);
-        });
-        const makeRequest = (index = 5) => {
-          if (index == 0) {
-            console.log("end");
-            return Promise.resolve();
-        }
-          return new Promise((resolve, reject) => {
-            ajaxRequest(index).then(() => makeRequest(index - 1));
-          });
-        };
 
+    //Прокрутка скрола скорости колесом мыши
+    var elem = document.getElementById('speed_slider');
 
-        function start() {
-            /*$('[class^="map__cell"').css("border-color","red");*/
-            makeRequest();
-        }
-/*
-        var start_btn = document.querySelector('#start');
-        start_btn.addEventListener('click', start);*/
+    if (elem.addEventListener) {
+      if ('onwheel' in document) {
+        // IE9+, FF17+
+        elem.addEventListener("wheel", onWheel);
+      } else if ('onmousewheel' in document) {
+        // устаревший вариант события
+        elem.addEventListener("mousewheel", onWheel);
+      } else {
+        // Firefox < 17
+        elem.addEventListener("MozMousePixelScroll", onWheel);
+      }
+    } else { // IE8-
+      elem.attachEvent("onmousewheel", onWheel);
+    }
+
+    // Это решение предусматривает поддержку IE8-
+    function onWheel(e) {
+      e = e || window.event;
+
+      // deltaY, detail содержат пиксели
+      // wheelDelta не дает возможность узнать количество пикселей
+      // onwheel || MozMousePixelScroll || onmousewheel
+      var delta = e.deltaY || e.detail || e.wheelDelta;
+
+      var info = document.getElementById('speed_slider');
+
+      if(delta>0){
+        info.value = +info.value + 50;
+      }else{
+        info.value = +info.value - 50;
+      }
+      $('#speed_value').text(info.value);
+
+      e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+    }
     </script>
     
 </body>

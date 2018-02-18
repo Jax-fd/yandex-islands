@@ -5,15 +5,19 @@ body {
 }
 
 .map {
+    display:inline-block;
     padding: 10px;
     margin: 0;
 }
 
-.map__res {
+.map__res, .map__res_value{
     padding: 0;
     margin: 10px 0;
-    font-size: 14px;
+    font-size: 30px;
     font-family: Arial;
+}
+.map__res_value{
+    display:inline-block;
 }
 
 .map__row {
@@ -34,6 +38,7 @@ body {
     /*мое*/
     font-size: 25pt;
     text-align: center;
+    user-select: none;
 }
 
 .map__cell_water {
@@ -56,16 +61,33 @@ body {
     background-color: #c4c4c4;
     border: 4px solid #8f8f8f;
 }
+.map__cell_select_log{
+    /*border-color: #00ff00;*/
+    /*background-color: #00ff00;*/
+    /*color:#00ff00;*/
+    outline: solid 3px #0f0;
 
+}
 #info-box{
     margin:15px;
+}
+.index,.index_val{
+    display:inline-block;
+    padding: 0;
+    margin: 10px 0;
+    font-size: 20px;
+    font-family: Arial;
+}
+.index_val{
+    padding-left:10px;
+    color:red;
 }
 #start{
     border:1px solid black;
     height:50px;
     padding:5px 15px;
     margin:10px;
-    font-size:15pt;
+    font-size:20px;
     outline: none;
     box-shadow: 2px 2px 0 #000;
 }
@@ -73,3 +95,109 @@ body {
     background-color: #e69797;
     box-shadow: 0px 0px 0 #000;
 }
+.map__cell svg{
+    color:#867114;
+}
+.fa-question-circle{
+    margin-left:5px;
+    color:#65a6ff;
+    font-size:15px;
+}
+#speed_container{
+    width:300px;
+    padding:10px;
+    margin:auto;
+    border:2px solid #7b7b7b;
+}
+#speed,#speed_value,#speed_old{
+    display:inline-block;
+    padding: 0;
+    margin:  0;
+    font-size: 20px;
+    font-family: Arial;
+}
+#speed_slider{
+    width:100%;
+}
+#speed_slider:hover{
+    background-color: #707070;
+}
+#log{
+    max-width:600px;
+    height:300px;
+    margin:auto;
+    background-color: black;
+    color: #00ff00;
+    padding:5px 10px;
+    text-align: left;
+    font-size:11pt;
+    /*line-height: 16px;*/
+    font-family: monospace;
+    border:3px solid #00ff00;
+    overflow: auto;
+}
+#log p{
+    margin:0px;
+    padding:0px;
+
+}
+
+/*для предыдущей скорости*/
+.gray{
+    color:grey;
+}
+.arrow_up{
+    position: absolute;
+    margin-top:-40px;
+    margin-left:10px;
+    font-size:25px;
+    transition-duration: 0.4s;
+    transition-property: all;
+    transition-timing-function: ease;
+}
+.arrow_up>i{
+    text-align: center; 
+    color:red;
+    opacity:    1;
+}
+.arrow_up svg{
+    color:red;
+}
+.arrow_left{
+    position: absolute;
+    margin-top:-30px;
+    margin-left:0px;
+    font-size:25px;
+    transition-duration: 0.4s;
+    transition-property: all;
+    transition-timing-function: ease;
+}
+.arrow_left>i{
+    text-align: center; 
+    color:red;
+    opacity:    1;
+}
+.arrow_left svg{
+    color:red;
+}
+
+.arrow_down{
+    position: absolute;
+    margin-top:-35px;
+    margin-left:10px;
+    font-size:25px;
+    transition-duration: 0.4s;
+    transition-property: all;
+    transition-timing-function: ease;
+}
+.arrow_down>i{
+    text-align: center; 
+    color:red;
+    opacity:1;
+}
+.arrow_down svg{
+    color:red;
+}
+/*.fa-arrow-up{
+    text-shadow: 0px 0px 3px #000;
+}*/
