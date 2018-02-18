@@ -42,7 +42,7 @@
     function render(map, count) {
         var containerElem = element('div', 'container'),
             map_1 = element('div', 'map'),
-            map_2 = element('div', 'map'),
+            map_2 = element('div', 'map_2'),
             rowElem_1,
             rowElem_2,
             type,

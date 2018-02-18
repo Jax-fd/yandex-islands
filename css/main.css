@@ -4,10 +4,13 @@ body {
     text-align:center;
 }
 
-.map {
+.map, .map_2 {
     display:inline-block;
     padding: 10px;
     margin: 0;
+}
+.map_2{
+    margin-left:20px;
 }
 
 .map__res, .map__res_value{
@@ -39,6 +42,9 @@ body {
     font-size: 25pt;
     text-align: center;
     user-select: none;
+    transition-duration: 0.5s;
+    transition-property: all;
+    transition-timing-function: ease;
 }
 
 .map__cell_water {

@@ -37,7 +37,7 @@
 
         //Функция, выполненяющая одну итерацию
         const pickOutCell = (y,x) => new Promise((resolve, reject) => {
-        	
+        		$('.map__cell').css("transition-duration", interval * 0.1 * 0.001 +'s');
             setTimeout(() => {
                 addLog("y: " + y + "; x: " + x, 0, y, x);
                 
@@ -66,14 +66,15 @@
 	                	$('#ar_left_'+y+'_'+x).css("display","none");
 	                }, interval * 0.5);
 
-	                //изменяем текущую ячейку в втором массиве: воду на остров
-                	setTimeout(function(){
-                    $('[m2_yx="' + y + '_' + x + '"]').removeClass("map__cell_water");
-                    $('[m2_yx="' + y + '_' + x + '"]').addClass("map__cell_island");
-/*  1.5  */       }, interval * 1.5);
+	                
                   
                   	//если есть верхний элемент и равен 1
                     if((y-1 >-1) && (map[y-1][x] == 1)){ 
+                    			//изменяем текущую ячейку в втором массиве: воду на остров
+				                	setTimeout(function(){
+				                    $('[m2_yx="' + y + '_' + x + '"]').removeClass("map__cell_water");
+				                    $('[m2_yx="' + y + '_' + x + '"]').addClass("map__cell_island");
+				                  }, interval * 0.5);
 
                     			//окрашиваем стрелку up в желтый
                           setTimeout(function(){
@@ -87,12 +88,12 @@
                           	$('[m2_yx="' + y + '_' + x + '"]').text(map2[y-1][x]);
                           	addLog("Присоединяем текущий остров к верхнему:",1);
                           	addLog("Текущему элементу во 2-м массиве ставим индекс верхнего",1);
-/*  1/2  */               }, interval * 1.5);
+/*  1/2  */               }, interval * 1.0);
 
                           //добавляем текущий элемент к верхнему острову - записываем координаты
                           islands[map2[y-1][x]].push({'x' : x, 'y' : y});
 
-                          //если есть и боковой элемент равный 1, и его номер не совпадает с верхним, то соединяем два острова
+                        //если есть и боковой элемент равный 1, и его номер не совпадает с верхним, то соединяем два острова
                           if( (x-1 >-1) && (map[y][x-1] == 1) && (map2[y][x-1] != map2[y-1][x]) ){
                           	//Уменьшаем количество островов
                           	count--;
@@ -109,12 +110,12 @@
                           	//рисуем звено на текущей ячейке
                           	setTimeout(function(){
                           		$('[m2_yx="' + y + '_' + x + '"]').html('<i class="fas fa-link"></i>');
-/*   1   */                	}, interval * 2.0 );
+                          		addLog("Устанавливаем все ячейки левого острова значением из верхнего.",1);
+/*   1   */                	}, interval * 1.5 );
                           	
-                          	//возвращаем значение
+                          	//убираем звено возвращаем значение
                           	setTimeout(function(){
                           		$('[m2_yx="' + y + '_' + x + '"]').text(map2[y-1][x]);
-                          		addLog("Устанавливаем все ячейки левого острова значением из верхнего.",1);
 /*   1   */                	}, interval * 2.5 );
 
                             //Слияние: меняем 2-ю карту, перекидываем координаты всех точек одного острова(левого) в другой (верхний)
@@ -128,11 +129,20 @@
                                 setTimeout(function(){
                                 	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').text(map2[y-1][x]);
                                 	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').addClass("map__cell_select");
-/*   1   */                     }, interval * 2.5 );
+/*   1   */                     }, interval * 2.0 );
                                 //снимаем выделение
                                 setTimeout(function(){
                                 	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').removeClass("map__cell_select");
-/*   2   */                     }, interval * 3 );
+/*   2   */                     }, interval * 2.2 );
+                                //выделяем 
+                                setTimeout(function(){
+                                	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').addClass("map__cell_select");
+/*   1   */                     }, interval * 2.3 );
+                                //снимаем выделение
+                                setTimeout(function(){
+                                	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').removeClass("map__cell_select");
+/*   2   */                     }, interval * 2.5 );
+                                //добавляем координату в текущий остров
                                 islands[map2[y-1][x]].push(point);
                             });
                             //удаляем поглощенный остров без сдвига индексов
@@ -141,11 +151,17 @@
                       }else{
                         if((x-1 >-1) && (map[y][x-1] == 1)){ //если есть боковой элемент
                         	
+                        	//изменяем текущую ячейку в втором массиве: воду на остров
+				                	setTimeout(function(){
+				                    $('[m2_yx="' + y + '_' + x + '"]').removeClass("map__cell_water");
+				                    $('[m2_yx="' + y + '_' + x + '"]').addClass("map__cell_island");
+				                  }, interval * 0.5 );
+
                         	//окрашиваем стрелку в желтый
                           setTimeout(function(){
                     				$('#ar_left_'+y+'_'+x+' svg').css('color','#c4a000');
                     				addLog("Слева есть остров.",1);
-                  				}, interval * 0.17);
+                  				}, interval * 0.17 );
 
                           map2[y][x] = map2[y][x-1]; //присоединяем: текущему присваиваем общее значение острова с бокового
                           
@@ -153,9 +169,13 @@
                           	$('[m2_yx="' + y + '_' + x + '"]').text(map2[y][x-1]);
                           	addLog("Присоединяем текущий остров к боковому:",1);
                           	addLog("Текущему элементу во 2-м массиве ставим индекс бокового",1);
-                          }, interval * 0.5);
+                          }, interval * 0.5 );
                           islands[map2[y][x-1]].push({'x' : x, 'y' : y});
                         }else{
+                        	setTimeout(function(){
+				                    $('[m2_yx="' + y + '_' + x + '"]').removeClass("map__cell_water");
+				                    $('[m2_yx="' + y + '_' + x + '"]').addClass("map__cell_island");
+				                  }, interval * 0.5 );
                           index++;
                           count++;
                           map2[y][x]=index;
