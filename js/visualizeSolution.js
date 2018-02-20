@@ -66,8 +66,6 @@
 	                	$('#ar_left_'+y+'_'+x).css("display","none");
 	                }, interval * 0.5);
 
-	                
-                  
                   	//если есть верхний элемент и равен 1
                     if((y-1 >-1) && (map[y-1][x] == 1)){ 
                     			//изменяем текущую ячейку в втором массиве: воду на остров
@@ -80,7 +78,7 @@
                           setTimeout(function(){
                     				$('#ar_up_'+y+'_'+x+' svg').css('color','#c4a000');
                     				addLog("Сверху есть остров.",1);
-/*  1/6  */       				}, interval * 0.17);
+                  				}, interval * 0.17);
                           
                           //присоединяем: текущему присваиваем общее значение острова с верхнего
                           map2[y][x] = map2[y-1][x];
@@ -88,7 +86,7 @@
                           	$('[m2_yx="' + y + '_' + x + '"]').text(map2[y-1][x]);
                           	addLog("Присоединяем текущий остров к верхнему:",1);
                           	addLog("Текущему элементу во 2-м массиве ставим индекс верхнего",1);
-/*  1/2  */               }, interval * 1.0);
+                          }, interval * 1.0);
 
                           //добавляем текущий элемент к верхнему острову - записываем координаты
                           islands[map2[y-1][x]].push({'x' : x, 'y' : y});
@@ -105,18 +103,18 @@
                     					$('.map__res_value').text(count);
                     					addLog("Слева есть остров с другим индексом. <br>Объединяем два острова:",1);
                     					addLog('Уменьшаем счетчик островов(' + count + ')',1);
-/*  1/6  */ 				 				}, interval * 0.17 );
+            				 				}, interval * 0.17 );
 
                           	//рисуем звено на текущей ячейке
                           	setTimeout(function(){
                           		$('[m2_yx="' + y + '_' + x + '"]').html('<i class="fas fa-link"></i>');
                           		addLog("Устанавливаем все ячейки левого острова значением из верхнего.",1);
-/*   1   */                	}, interval * 1.5 );
+                           	}, interval * 1.5 );
                           	
                           	//убираем звено возвращаем значение
                           	setTimeout(function(){
                           		$('[m2_yx="' + y + '_' + x + '"]').text(map2[y-1][x]);
-/*   1   */                	}, interval * 2.5 );
+                           	}, interval * 2.5 );
 
                             //Слияние: меняем 2-ю карту, перекидываем координаты всех точек одного острова(левого) в другой (верхний)
                             var isl = islands[map2[y][x-1]]; //вытягиваем координаты левого острова
@@ -129,19 +127,19 @@
                                 setTimeout(function(){
                                 	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').text(map2[y-1][x]);
                                 	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').addClass("map__cell_select");
-/*   1   */                     }, interval * 2.0 );
+                                }, interval * 2.0 );
                                 //снимаем выделение
                                 setTimeout(function(){
                                 	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').removeClass("map__cell_select");
-/*   2   */                     }, interval * 2.2 );
+                                }, interval * 2.2 );
                                 //выделяем 
                                 setTimeout(function(){
                                 	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').addClass("map__cell_select");
-/*   1   */                     }, interval * 2.3 );
+                                }, interval * 2.3 );
                                 //снимаем выделение
                                 setTimeout(function(){
                                 	$('[m2_yx="' + point['y'] + '_' + point['x'] + '"]').removeClass("map__cell_select");
-/*   2   */                     }, interval * 2.5 );
+                                }, interval * 2.5 );
                                 //добавляем координату в текущий остров
                                 islands[map2[y-1][x]].push(point);
                             });

@@ -12,10 +12,9 @@
 
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script type="text/javascript">
+    <script>
         function speedChange() {
             speed = document.getElementById("speed_slider").value;
-            /*interval = speed; def_interval = speed;*/
             $('#speed_value').text(speed);
         }
     </script>
@@ -23,7 +22,6 @@
 <body>
     <div class="outer"></div>
     
-    <!-- мое -->
     <div id="info-box"></div> 
     
     <button id="start" >Начать визуализацию решения</button> <!-- Start visualize solution -->
@@ -41,7 +39,7 @@
     <div class="index_val">0</div><br>
 
     <div id="log"></div>
-    <!-- мое -->
+    
         
     <script src="js/consts.js"></script>
     <script src="js/render.js"></script>
